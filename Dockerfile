@@ -1,20 +1,15 @@
-FROM node:10
+FROM node:13.12.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY yarn.lock ./
 
-# A directory within the virtualized Docker environment
-# Becomes more relevant when using Docker Compose later
-WORKDIR /usr/src/app
-
-# Copies package.json and package-lock.json to Docker environment
-COPY package*.json ./
-
-# Installs all node packages
 RUN yarn
+COPY . ./
+RUN yarn run build
 
-# Copies everything over to Docker environment
-COPY . .
-
-# Uses port which is used by the actual application
-EXPOSE 3000
-
-# Finally runs the application
-CMD [ "yarn", "start" ]
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
