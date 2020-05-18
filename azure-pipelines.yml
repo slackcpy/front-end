@@ -11,10 +11,10 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'cca0385e-a761-4584-b04a-9ee2a355643b'
-  imageRepository: 'frontend'
+  imageRepository: 'front-end'
   containerRegistry: 'slackcpyacr.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile.prod'
+  tag: 'latest'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -50,5 +50,5 @@ stages:
         appType: 'webAppContainer'
         WebAppName: 'SlackCpy'
         DockerNamespace: 'front-end'
-        DockerRepository: 'slackcpyacr.azurecr.io/front-end:latest'
+        DockerRepository: 'slackcpyacr.azurecr.io/front-end'
         DockerImageTag: 'latest'
