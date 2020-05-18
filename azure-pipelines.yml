@@ -1,4 +1,13 @@
 # Docker
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Free Trial(21739d37-7de3-412c-91d0-105c69be8462)'
+    appType: 'webAppContainer'
+    WebAppName: 'SlackCpy'
+    DockerNamespace: 'front-end'
+    DockerRepository: 'slackcpyacr.azurecr.io/front-end:latest'
+    DockerImageTag: 'latest'
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
